@@ -5,3 +5,5 @@
 [✔️] book delete path
 
 [✔️] book update path
+
+[✔️] book create path
