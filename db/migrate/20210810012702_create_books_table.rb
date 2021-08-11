@@ -4,9 +4,12 @@ class CreateBooksTable < ActiveRecord::Migration[6.1]
       t.string :book_title
       t.string :book_author
       t.string :book_description
+      t.string :book_group
+      t.boolean :is_notes_added
+      t.string :notes
 
-      t.belongs_to :read_status, foreign_key: true
-      t.belongs_to :fiction_nonfiction_group, foreign_key: true
+      t.belongs_to :status, foreign_key: true
+      
     end
   end
 end

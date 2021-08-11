@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_07_052715) do
+ActiveRecord::Schema.define(version: 2021_08_10_032927) do
 
   create_table "book_tags", force: :cascade do |t|
     t.integer "book_id"
@@ -23,17 +23,14 @@ ActiveRecord::Schema.define(version: 2021_08_07_052715) do
     t.string "book_title"
     t.string "book_author"
     t.string "book_description"
-    t.integer "read_status_id"
-    t.integer "fiction_nonfiction_group_id"
-    t.index ["fiction_nonfiction_group_id"], name: "index_books_on_fiction_nonfiction_group_id"
-    t.index ["read_status_id"], name: "index_books_on_read_status_id"
+    t.string "book_group"
+    t.boolean "is_notes_added"
+    t.string "notes"
+    t.integer "status_id"
+    t.index ["status_id"], name: "index_books_on_status_id"
   end
 
-  create_table "fiction_nonfiction_groups", force: :cascade do |t|
-    t.string "group_name"
-  end
-
-  create_table "read_statuses", force: :cascade do |t|
+  create_table "statuses", force: :cascade do |t|
     t.string "read_status"
   end
 
@@ -41,8 +38,5 @@ ActiveRecord::Schema.define(version: 2021_08_07_052715) do
     t.string "tag_name"
   end
 
-  add_foreign_key "book_tags", "books"
-  add_foreign_key "book_tags", "tags"
-  add_foreign_key "books", "fiction_nonfiction_groups"
-  add_foreign_key "books", "read_statuses"
+  add_foreign_key "books", "statuses"
 end

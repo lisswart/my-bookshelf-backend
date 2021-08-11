@@ -1,3 +1,5 @@
+
+
 class Application
 
   def call(env)
@@ -110,8 +112,8 @@ class Application
       id = req.path.split('/').last
       begin
         book = Book.find(id)
-        status_id = book.read_status_id
-        status = ReadStatus.find(status_id)
+        status_id = book.status_id
+        status = Status.find(status_id)
         return [
           200,
           { 'Content-Type' => 'application/json' },

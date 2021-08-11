@@ -1,22 +1,17 @@
 puts "clearing old data..."
 
 Book.destroy_all
-ReadStatus.destroy_all
-FictionNonfictionGroup.destroy_all
+Status.destroy_all
 Tag.destroy_all
 BookTag.destroy_all
 
 puts "seeding read_statuses table"
 
-ReadStatus.create(read_status: "Not Begun")
-ReadStatus.create(read_status: "In Progress")
-ReadStatus.create(read_status: "Completed")
-ReadStatus.create(read_status: "Abandoned")
-
-puts "seeding groups table"
-
-FictionNonfictionGroup.create(group_name: "fiction")
-FictionNonfictionGroup.create(group_name: "nonfiction")
+Status.create(read_status: "Not Begun")
+Status.create(read_status: "In Progress")
+Status.create(read_status: "Completed")
+Status.create(read_status: "Abandoned")
+Status.create(read_status: "None")
 
 puts "seeding tags table"
 
@@ -44,113 +39,144 @@ Book.create(
   book_title: "Debating Science: Deliberation, Values, and the Common Good",
   book_author: "Dane Scott, Blake Francis",
   book_description: "",
-  read_status_id: 4,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: true,
+  notes: "",
+  status_id: 5
   )
 Book.create(
   book_title: "A Study in the Construction of Reality",
   book_author: "Gaye Tuchman",
   book_description: "",
-  read_status_id: 1,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: true,
+  notes: "",
+  status_id: 5
   )
 Book.create(
   book_title: "The Luminaries", 
   book_author: "Eleanor Catton",
   book_description: "",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:1
+  book_group: "fiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "Invisible Cities",
   book_author: "Italo Calvino",
   book_description: "\“Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.\” — from Invisible Cities ",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:1
+  book_group: "fiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "Thinking, Fast and Slow",
   book_author: "Daniel Kahnemann",
   book_description: "",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "When the Brain Can't Hear: Unraveling the Mystery of Auditory Processing Disorder",
   book_author: "Teri James Bellis, Ph.D",
   book_description: "\“Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.\” — from Invisible Cities ",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "Nerdy, Shy, and Socially Inappropriate: A User Guide to an Asperger Life",
   book_author: "Cynthia Kim",
   book_description: "\“Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.\” — from Invisible Cities ",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "Grokking Algorithms: An Illustrated Guide for Programmers and Other Curious People",
   book_author: "Aditya Y. Bhargava",
   book_description: "",
-  read_status_id: 2,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 2
   )
 Book.create(
   book_title: "Reality is Not What It Seems: The Journey to Quantum Gravity",
   book_author: "Carlo Rovelli",
   book_description: "",
-  read_status_id: 1,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 5
   )
 Book.create(
   book_title: "Writing to Learn: How to Write--and Think--Clearly",
   book_author: "William Zinsser",
   book_description: "",
-  read_status_id: 2,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 2
   )
 Book.create(
   book_title: "Science, Policy, and the Value-Free Ideal",
   book_author: "Heather Douglas",
   book_description: "",
-  read_status_id: 3,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 3
   )
 Book.create(
   book_title: "The Writing Life: Writers on How They Think and Work",
   book_author: "Marie Arana",
   book_description: "\“Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.\” — from Invisible Cities ",
-  read_status_id: 4,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 4
   )
 Book.create(
   book_title: "Prediction: Science, Decision Making, and the Future of Nature",
   book_author: "Daniel Sarewitz, Roger A. Pielke, Jr., Radford Byerly, Jr.",
   book_description: "",
-  read_status_id: 4,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 4
   )
 Book.create(
   book_title: "The Art of Political Manipulation",
   book_author: "William H. Riker",
   book_description: "\“Cities, like dreams, are made of desires and fears, even if the thread of their discourse is secret, their rules are absurd, their perspectives deceitful, and everything conceals something else.\” — from Invisible Cities ",
-  read_status_id: 1,
-  fiction_nonfiction_group_id:2
+  is_notes_added: false,
+  notes: "",
+  status_id: 5
   )
 Book.create(
   book_title: "The Wave in the Mind: Talks and Essays on the Writer, the Reader, and the Imagination",
   book_author: "Ursula K. Le Guin",
   book_description: "",
-  read_status_id: 1,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 5
   )
 Book.create(
   book_title: "Style: Lessons in Clarity and Grace",
   book_author: "Joseph M. Williams, Joseph Bizup",
   book_description: "",
-  read_status_id: 1,
-  fiction_nonfiction_group_id:2
+  book_group: "nonfiction",
+  is_notes_added: false,
+  notes: "",
+  status_id: 5
   )
 
 
