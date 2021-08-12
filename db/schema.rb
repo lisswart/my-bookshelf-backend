@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2021_08_10_032927) do
+ActiveRecord::Schema.define(version: 2021_08_12_062209) do
 
   create_table "book_tags", force: :cascade do |t|
     t.integer "book_id"
@@ -23,11 +23,16 @@ ActiveRecord::Schema.define(version: 2021_08_10_032927) do
     t.string "book_title"
     t.string "book_author"
     t.string "book_description"
-    t.string "book_group"
     t.boolean "is_notes_added"
     t.string "notes"
     t.integer "status_id"
+    t.integer "group_id"
+    t.index ["group_id"], name: "index_books_on_group_id"
     t.index ["status_id"], name: "index_books_on_status_id"
+  end
+
+  create_table "groups", force: :cascade do |t|
+    t.string "group_name"
   end
 
   create_table "statuses", force: :cascade do |t|
@@ -38,5 +43,6 @@ ActiveRecord::Schema.define(version: 2021_08_10_032927) do
     t.string "tag_name"
   end
 
+  add_foreign_key "books", "groups"
   add_foreign_key "books", "statuses"
 end

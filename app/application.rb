@@ -42,7 +42,7 @@ class Application
         ]
       end
 
-    elsif req.path.match(/books/) && req.patch?
+    elsif req.path.match(/books/) && req.put?
       id = req.path.split('/')[2]
       body = JSON.parse(req.body.read)
       pp body
@@ -137,9 +137,9 @@ class Application
       ]
 
     elsif req.path.match(/tags/) && req.get?
-      name = req.path.split('/').last
+      id = req.path.split('/').last
       begin
-        tag = Tag.find_by(tag_name: name)
+        tag = Tag.find(id)
         tag_books = tag.as_json(include: :books)
         return [
           200,
@@ -201,7 +201,7 @@ class Application
 
     # STATUS routes
     elsif req.path == '/statuses' && req.get?
-      statuses = ReadStatus.all
+      statuses = Status.all
       return [
         200,
         { 'Content-Type' => 'application/json' },
@@ -211,7 +211,7 @@ class Application
     elsif req.path.match(/statuses/) && req.get?
       id = req.path.split('/')[2]
       begin
-        status = ReadStatus.find(id)
+        status = Status.find(id)
         status_books = status.as_json(include: :books)
         return [
           200,
@@ -227,7 +227,7 @@ class Application
       end
     elsif req.path.match(/add_status/) && req.post?
       body = JSON.parse(req.body.read)
-      status = ReadStatus.create(body)
+      status = Status.create(body)
       return [
         200,
         { 'Content-Type' => 'application/json' },
@@ -237,7 +237,7 @@ class Application
       id = req.path.split('/')[2]
       body = JSON.parse(req.body.read)
       begin
-        status = ReadStatus.find(id)
+        status = Status.find(id)
         status.update(body)
         return [
           200,
@@ -255,7 +255,7 @@ class Application
     elsif req.path.match(/statuses/) && req.delete?
       id = req.path.split('/')[2]
       begin
-        status = ReadStatus.find(id)
+        status = Status.find(id)
         status.destroy
         return [
           200,
@@ -271,10 +271,17 @@ class Application
       end
 
     # GROUP routes
+    elsif req.path == '/groups' && req.get?
+      groups = Group.all
+      return [
+        200,
+        { 'Content-Type' => 'application/json' },
+        [ groups.to_json ]
+      ]
     elsif req.path.match(/groups/) && req.get?
-      name = req.path.split('/').last
+      id = req.path.split('/').last
       begin
-        group = FictionNonfictionGroup.find_by(group_name: name)
+        group = Group.find(id)
         group_books = group.as_json(include: :books)
         return [
           200,
@@ -293,7 +300,8 @@ class Application
     elsif req.path.match(/title-search/) && req.get?
       search_term = req.path.split('/').last      
       begin
-        book_by_title = Book.all.filter {|book| book.book_title.downcase.include?(search_term)}
+        book_by_title = Book.all.filter {|book| 
+          book.book_title.downcase.include?(search_term)}
         return [
           200,
           { 'Content-Type' => 'application/json' },
@@ -309,7 +317,8 @@ class Application
     elsif req.path.match(/author-search/) && req.get?
       search_term = req.path.split('/').last      
       begin
-        book_by_author = Book.all.filter {|book| book.book_author.downcase.include?(search_term)}
+        book_by_author = Book.all.filter {|book| 
+          book.book_author.downcase.include?(search_term)}
         return [
           200,
           { 'Content-Type' => 'application/json' },
