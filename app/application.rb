@@ -1,5 +1,3 @@
-
-
 class Application
 
   def call(env)
@@ -295,42 +293,15 @@ class Application
           [ { :message => "group not found" } ]
         ]
       end
-
-    # SEARCH routes
-    elsif req.path.match(/title-search/) && req.get?
-      search_term = req.path.split('/').last      
-      begin
-        book_by_title = Book.all.filter {|book| 
-          book.book_title.downcase.include?(search_term)}
-        return [
-          200,
-          { 'Content-Type' => 'application/json' },
-          [ book_by_title.to_json ]
-        ]        
-      rescue
-        return [
-            200,
-            { 'Content-Type' => 'application/json' },
-            [ { :message => "Couldn't find book" }.to_json ]
-        ]
-      end
-    elsif req.path.match(/author-search/) && req.get?
-      search_term = req.path.split('/').last      
-      begin
-        book_by_author = Book.all.filter {|book| 
-          book.book_author.downcase.include?(search_term)}
-        return [
-          200,
-          { 'Content-Type' => 'application/json' },
-          [ book_by_author.to_json ]
-        ]        
-      rescue
-        return [
-            200,
-            { 'Content-Type' => 'application/json' },
-            [ { :message => "Couldn't find book" }.to_json ]
-        ]
-      end      
+    elsif req.path.match(/groups/) && req.post?
+      body = JSON.parse(req.body.read)
+      group = Group.create(body)
+      return [
+        200,
+        { 'Content-Type' => 'application/json' },
+        [ group.to_json ]
+      ]
+ 
     else
       res.write "Path Not Found"
     end
