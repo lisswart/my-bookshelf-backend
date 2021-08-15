@@ -8,7 +8,7 @@ class CreateBooksTable < ActiveRecord::Migration[6.1]
       t.string :notes
 
       t.belongs_to :status, foreign_key: true
-      t.belongs_to :group, foreign_key: true      
+      t.belongs_to :group, foreign_key: true
     end
   end
 end
