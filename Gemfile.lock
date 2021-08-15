@@ -79,5 +79,8 @@ DEPENDENCIES
   shotgun (~> 0.9.2)
   sinatra-activerecord (~> 2.0)
 
+RUBY VERSION
+   ruby 2.6.6p146
+
 BUNDLED WITH
    2.2.23
